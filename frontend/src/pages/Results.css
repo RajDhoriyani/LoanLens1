@@ -1,0 +1,278 @@
+/* ─── Results Page ─── */
+
+.results-page {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--accent-primary-light);
+}
+
+/* Verdict Banner */
+.verdict-banner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 36px;
+  margin-bottom: 24px;
+}
+
+.verdict-banner.approved {
+  border-color: rgba(16, 185, 129, 0.3);
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.08),
+    rgba(6, 182, 212, 0.04)
+  );
+}
+
+.verdict-banner.rejected {
+  border-color: rgba(239, 68, 68, 0.3);
+  background: linear-gradient(
+    135deg,
+    rgba(239, 68, 68, 0.08),
+    rgba(245, 158, 11, 0.04)
+  );
+}
+
+.verdict-icon {
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+.verdict-banner.approved .verdict-icon {
+  color: #10b981;
+}
+
+.verdict-banner.rejected .verdict-icon {
+  color: #ef4444;
+}
+
+.verdict-content {
+  flex: 1;
+}
+
+.verdict-content h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.verdict-content p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* Score Circle */
+.verdict-score {
+  flex-shrink: 0;
+}
+
+.score-circle {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.score-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.score-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.score-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Stats Row */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+}
+
+.stat-card-icon {
+  font-size: 1.8rem;
+}
+
+.stat-card-label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.stat-card-value {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Chart */
+.chart-section {
+  padding: 32px;
+  margin-bottom: 24px;
+}
+
+.chart-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.chart-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.chart-container {
+  width: 100%;
+}
+
+/* Custom Tooltip */
+.custom-tooltip {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  box-shadow: var(--shadow-md);
+}
+
+.tooltip-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: capitalize;
+  margin-bottom: 2px;
+}
+
+.tooltip-value {
+  font-size: 0.8rem;
+  color: var(--accent-primary-light);
+}
+
+/* Insights */
+.insights-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.insight-card {
+  padding: 28px;
+}
+
+.insight-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.insight-title.danger {
+  color: #f87171;
+}
+
+.insight-title.success {
+  color: #34d399;
+}
+
+.insight-list {
+  list-style: none;
+  padding: 0;
+}
+
+.insight-list li {
+  position: relative;
+  padding: 10px 0 10px 20px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.insight-list li:last-child {
+  border-bottom: none;
+}
+
+.insight-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #f87171;
+  font-weight: 700;
+}
+
+.insight-list.suggestions li::before {
+  color: #34d399;
+  content: "✦";
+}
+
+/* Footer */
+.results-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .verdict-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 28px;
+  }
+  .stats-row {
+    grid-template-columns: 1fr;
+  }
+  .insights-row {
+    grid-template-columns: 1fr;
+  }
+  .verdict-content h1 {
+    font-size: 1.4rem;
+  }
+}
