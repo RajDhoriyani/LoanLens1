@@ -115,6 +115,8 @@ const applicationSchema = new mongoose.Schema(
         "professional",
         "gold",
         "loan_against_property",
+        "business_expansion",
+        "startup",
       ],
       required: true,
     },

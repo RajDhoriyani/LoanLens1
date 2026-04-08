@@ -11,6 +11,8 @@ const LOAN_TYPES = [
   "professional",
   "gold",
   "loan_against_property",
+  "business_expansion",
+  "startup",
 ];
 
 const USER_ROLES = ["individual", "student", "organisation"];

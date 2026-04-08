@@ -215,13 +215,23 @@ export default function Apply() {
       </div>
 
       <div className="form-group">
-        <Dropdown
-          label="Loan Type"
-          name="loan_type"
-          value={loanData.loan_type}
-          onChange={updateField(setLoanData)}
-          options={userType === "organisation" ? ORG_LOAN_TYPES : userType === "student" ? STUDENT_LOAN_TYPES : LOAN_TYPES}
-        />
+        <label className="form-label">Loan Type</label>
+        {userType === "student" ? (
+          <div className="status-badge-container">
+            <span className="loan-type-badge">Educational Loan</span>
+          </div>
+        ) : userType === "organisation" && ORG_LOAN_TYPES.length === 1 ? (
+          <div className="status-badge-container">
+            <span className="loan-type-badge">{ORG_LOAN_TYPES[0].label}</span>
+          </div>
+        ) : (
+          <Dropdown
+            name="loan_type"
+            value={loanData.loan_type}
+            onChange={updateField(setLoanData)}
+            options={userType === "organisation" ? ORG_LOAN_TYPES : LOAN_TYPES}
+          />
+        )}
       </div>
 
       <div className="form-row">
@@ -528,8 +538,37 @@ export default function Apply() {
         : orgInputs;
 
     const formatNum = (n) => {
-      if (!n) return "—";
+      if (!n && n !== 0) return "—";
       return Number(n).toLocaleString("en-IN");
+    };
+
+    // Helper to get loan type label
+    const getLoanLabel = () => {
+      const allTypes = [...LOAN_TYPES, ...ORG_LOAN_TYPES, ...STUDENT_LOAN_TYPES];
+      const match = allTypes.find((t) => t.value === loanData.loan_type);
+      return match ? match.label : loanData.loan_type;
+    };
+
+    const labelMap = {
+      income: "Monthly Income",
+      current_assets: "Total Assets",
+      cibil_score: "CIBIL Score",
+      age: "Age",
+      employment_status: "Employment",
+      guardian_income: "Guardian's Monthly Income",
+      guardian_cibil: "Guardian's CIBIL Score",
+      student_age: "Student Age",
+      guardian_existing_loans: "Guardian's Existing Loans",
+      guardian_assets: "Guardian's Assets",
+      student_income: "Student's Monthly Income",
+      linkedin_profile: "LinkedIn Profile",
+      github_profile: "GitHub Profile",
+      balance_sheet_summary: "Balance Sheet Summary",
+      debt_to_equity_ratio: "Debt-to-Equity Ratio",
+      current_ratio: "Current Ratio",
+      revenue: "Annual Revenue",
+      GST_turnover: "GST Turnover",
+      number_of_employees: "Number of Employees",
     };
 
     return (
@@ -538,8 +577,8 @@ export default function Apply() {
           <HiOutlineClipboardCheck /> Review & Submit
         </h3>
 
-        <div className="review-section">
-          <h4 className="review-group-title">Applicant</h4>
+        <div className="review-section glass-card">
+          <h4 className="review-group-title">Applicant Details</h4>
           <div className="review-grid">
             <div className="review-item">
               <span className="review-label">Name</span>
@@ -556,37 +595,43 @@ export default function Apply() {
           </div>
         </div>
 
-        <div className="review-section">
-          <h4 className="review-group-title">Loan</h4>
+        <div className="review-section glass-card">
+          <h4 className="review-group-title">Loan Requirement</h4>
           <div className="review-grid">
             <div className="review-item">
               <span className="review-label">Loan Type</span>
-              <span className="review-value capitalize">
-                {loanData.loan_type.replace(/_/g, " ")}
-              </span>
+              <span className="review-value">{getLoanLabel()}</span>
             </div>
             <div className="review-item">
-              <span className="review-label">Amount</span>
+              <span className="review-label">Principal Amount</span>
               <span className="review-value">₹{formatNum(loanData.loan_amount)}</span>
             </div>
             <div className="review-item">
-              <span className="review-label">Tenure</span>
+              <span className="review-label">Duration</span>
               <span className="review-value">{loanData.tenure} months</span>
             </div>
           </div>
         </div>
 
-        <div className="review-section">
-          <h4 className="review-group-title">Financial Details</h4>
+        <div className="review-section glass-card">
+          <h4 className="review-group-title">Financial & Background</h4>
           <div className="review-grid">
             {Object.entries(inputs).map(([key, val]) => (
               <div key={key} className="review-item">
                 <span className="review-label">
-                  {key.replace(/_/g, " ")}
+                  {labelMap[key] || key.replace(/_/g, " ")}
                 </span>
                 <span className="review-value">
-                  {typeof val === "number" || !isNaN(Number(val))
-                    ? formatNum(val)
+                  {key.includes("income") ||
+                  key.includes("assets") ||
+                  key.includes("revenue") ||
+                  key.includes("summarg") ||
+                  key.includes("loans") ||
+                  key.includes("turnover") ||
+                  key === "balance_sheet_summary"
+                    ? `₹${formatNum(val)}`
+                    : typeof val === "number" || (!isNaN(Number(val)) && val !== "")
+                    ? val
                     : val || "—"}
                 </span>
               </div>

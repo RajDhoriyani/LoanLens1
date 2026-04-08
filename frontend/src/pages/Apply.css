@@ -137,45 +137,67 @@
 /* Review */
 .review-section {
   margin-bottom: 24px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border-color);
+  padding: 24px;
 }
 
-.review-section:last-of-type {
-  border-bottom: none;
-}
-
-.review-group-title {
-  font-size: 0.75rem;
-  font-weight: 600;
+.review-section .review-group-title {
+  font-size: 0.8rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--color-3);
-  margin-bottom: 14px;
+  letter-spacing: 1.5px;
+  color: var(--color-6);
+  margin-bottom: 20px;
+  border-left: 3px solid var(--color-6);
+  padding-left: 12px;
 }
 
 .review-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
 }
 
 .review-item {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 6px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .review-label {
-  font-size: 0.75rem;
-  color: var(--color-2);
-  text-transform: capitalize;
+  font-size: 0.7rem;
+  color: var(--color-3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .review-value {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--color-5);
+  word-break: break-all;
+}
+
+/* Badge Styles */
+.status-badge-container {
+  display: flex;
+  margin-top: 8px;
+}
+
+.loan-type-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 20px;
+  background: rgba(28, 48, 62, 0.2);
+  border: 1px solid var(--color-6);
+  border-radius: var(--radius-sm);
+  color: var(--color-5);
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 0 15px rgba(28, 48, 62, 0.3);
 }
 
 .capitalize {

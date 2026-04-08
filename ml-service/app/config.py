@@ -75,4 +75,6 @@ LOAN_TYPE_RATES = {
     "professional": 10.5,
     "gold": 7.5,
     "loan_against_property": 9.0,
+    "business_expansion": 11.5,
+    "startup": 13.0,
 }
