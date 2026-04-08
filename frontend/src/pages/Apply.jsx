@@ -9,18 +9,29 @@ import {
   HiOutlineCurrencyRupee,
   HiOutlineClipboardCheck,
 } from "react-icons/hi";
-import { createUser, applyForLoan, predictLoan } from "../api";
+import { applyForLoan, predictLoan } from "../api";
+import { useAuth } from "../context/AuthContext";
+import Dropdown from "../components/Dropdown";
 import "./Apply.css";
 
 const LOAN_TYPES = [
-  { value: "home", label: "🏠 Home Loan" },
-  { value: "car", label: "🚗 Car Loan" },
-  { value: "personal", label: "💰 Personal Loan" },
-  { value: "medical", label: "🏥 Medical Loan" },
-  { value: "educational", label: "🎓 Educational Loan" },
-  { value: "professional", label: "💼 Professional Loan" },
-  { value: "gold", label: "🥇 Gold Loan" },
-  { value: "loan_against_property", label: "🏢 Loan Against Property" },
+  { value: "home", label: "Home Loan" },
+  { value: "car", label: "Car Loan" },
+  { value: "personal", label: "Personal Loan" },
+  { value: "medical", label: "Medical Loan" },
+  { value: "educational", label: "Educational Loan" },
+  { value: "professional", label: "Professional Loan" },
+  { value: "gold", label: "Gold Loan" },
+  { value: "loan_against_property", label: "Loan Against Property" },
+];
+
+const ORG_LOAN_TYPES = [
+  { value: "business_expansion", label: "Business Expansion Loan" },
+  { value: "startup", label: "Startup Loan" },
+];
+
+const STUDENT_LOAN_TYPES = [
+  { value: "educational", label: "Educational Loan" },
 ];
 
 const STEPS_INDIVIDUAL = ["Loan Details", "Financial Profile", "Review & Submit"];
@@ -35,13 +46,13 @@ const slideVariants = {
 
 export default function Apply() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const [userType, setUserType] = useState("individual");
-  const [userData, setUserData] = useState({ name: "", email: "" });
+  const [userType, setUserType] = useState(user?.role || "individual");
 
   const [loanData, setLoanData] = useState({
     loan_type: "home",
@@ -99,13 +110,8 @@ export default function Apply() {
     setError("");
 
     try {
-      // 1. Create or find user
-      const userRes = await createUser({
-        name: userData.name,
-        email: userData.email,
-        role: userType,
-      });
-      const userId = userRes.data.data._id;
+      // Use logged-in user
+      const userId = user._id;
 
       // 2. Submit application
       const appPayload = {
@@ -193,55 +199,29 @@ export default function Apply() {
                 setUserType(t);
                 if (t === "student") {
                   setLoanData((p) => ({ ...p, loan_type: "educational" }));
+                } else if (t === "organisation") {
+                  setLoanData((p) => ({ ...p, loan_type: "business_expansion" }));
+                } else {
+                  setLoanData((p) => ({ ...p, loan_type: "home" }));
                 }
               }}
             >
-              {t === "individual" && "👤 Individual"}
-              {t === "student" && "🎓 Student"}
-              {t === "organisation" && "🏢 Organisation"}
+              {t === "individual" && "Individual"}
+              {t === "student" && "Student"}
+              {t === "organisation" && "Organisation"}
             </button>
           ))}
         </div>
       </div>
 
-      <div className="form-row">
-        <div className="form-group">
-          <label className="form-label">Your Name</label>
-          <input
-            className="form-input"
-            name="name"
-            value={userData.name}
-            onChange={updateField(setUserData)}
-            placeholder="Enter full name"
-          />
-        </div>
-        <div className="form-group">
-          <label className="form-label">Email</label>
-          <input
-            className="form-input"
-            name="email"
-            type="email"
-            value={userData.email}
-            onChange={updateField(setUserData)}
-            placeholder="your@email.com"
-          />
-        </div>
-      </div>
-
       <div className="form-group">
-        <label className="form-label">Loan Type</label>
-        <select
-          className="form-select"
+        <Dropdown
+          label="Loan Type"
           name="loan_type"
           value={loanData.loan_type}
           onChange={updateField(setLoanData)}
-        >
-          {LOAN_TYPES.map((lt) => (
-            <option key={lt.value} value={lt.value}>
-              {lt.label}
-            </option>
-          ))}
-        </select>
+          options={userType === "organisation" ? ORG_LOAN_TYPES : userType === "student" ? STUDENT_LOAN_TYPES : LOAN_TYPES}
+        />
       </div>
 
       <div className="form-row">
@@ -330,20 +310,20 @@ export default function Apply() {
       </div>
 
       <div className="form-group">
-        <label className="form-label">Employment Status</label>
-        <select
-          className="form-select"
+        <Dropdown
+          label="Employment Status"
           name="employment_status"
           value={individualInputs.employment_status}
           onChange={updateField(setIndividualInputs)}
-        >
-          <option value="salaried">Salaried</option>
-          <option value="self_employed">Self Employed</option>
-          <option value="business_owner">Business Owner</option>
-          <option value="freelancer">Freelancer</option>
-          <option value="retired">Retired</option>
-          <option value="unemployed">Unemployed</option>
-        </select>
+          options={[
+            { value: "salaried", label: "Salaried" },
+            { value: "self_employed", label: "Self Employed" },
+            { value: "business_owner", label: "Business Owner" },
+            { value: "freelancer", label: "Freelancer" },
+            { value: "retired", label: "Retired" },
+            { value: "unemployed", label: "Unemployed" },
+          ]}
+        />
       </div>
     </div>
   );
@@ -563,11 +543,11 @@ export default function Apply() {
           <div className="review-grid">
             <div className="review-item">
               <span className="review-label">Name</span>
-              <span className="review-value">{userData.name || "—"}</span>
+              <span className="review-value">{user?.name || "—"}</span>
             </div>
             <div className="review-item">
               <span className="review-label">Email</span>
-              <span className="review-value">{userData.email || "—"}</span>
+              <span className="review-value">{user?.email || "—"}</span>
             </div>
             <div className="review-item">
               <span className="review-label">Type</span>

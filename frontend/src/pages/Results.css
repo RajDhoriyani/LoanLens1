@@ -9,15 +9,15 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
+  color: var(--color-3);
+  font-size: 0.88rem;
   font-weight: 500;
   margin-bottom: 24px;
   transition: color 0.2s;
 }
 
 .back-link:hover {
-  color: var(--accent-primary-light);
+  color: var(--color-5);
 }
 
 /* Verdict Banner */
@@ -30,34 +30,26 @@
 }
 
 .verdict-banner.approved {
-  border-color: rgba(16, 185, 129, 0.3);
-  background: linear-gradient(
-    135deg,
-    rgba(16, 185, 129, 0.08),
-    rgba(6, 182, 212, 0.04)
-  );
+  border-color: rgba(74, 222, 128, 0.25);
+  background: rgba(74, 222, 128, 0.05);
 }
 
 .verdict-banner.rejected {
-  border-color: rgba(239, 68, 68, 0.3);
-  background: linear-gradient(
-    135deg,
-    rgba(239, 68, 68, 0.08),
-    rgba(245, 158, 11, 0.04)
-  );
+  border-color: rgba(248, 113, 113, 0.25);
+  background: rgba(248, 113, 113, 0.05);
 }
 
 .verdict-icon {
-  font-size: 3.5rem;
+  font-size: 3.2rem;
   line-height: 1;
 }
 
 .verdict-banner.approved .verdict-icon {
-  color: #10b981;
+  color: #4ade80;
 }
 
 .verdict-banner.rejected .verdict-icon {
-  color: #ef4444;
+  color: #f87171;
 }
 
 .verdict-content {
@@ -65,14 +57,15 @@
 }
 
 .verdict-content h1 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 800;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
+  color: var(--color-5);
 }
 
 .verdict-content p {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
+  color: var(--color-3);
+  font-size: 0.9rem;
 }
 
 /* Score Circle */
@@ -82,8 +75,8 @@
 
 .score-circle {
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 96px;
+  height: 96px;
 }
 
 .score-svg {
@@ -101,14 +94,14 @@
 }
 
 .score-value {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--color-5);
 }
 
 .score-label {
-  font-size: 0.7rem;
-  color: var(--text-muted);
+  font-size: 0.65rem;
+  color: var(--color-2);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -129,13 +122,14 @@
 }
 
 .stat-card-icon {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
+  color: var(--color-3);
 }
 
 .stat-card-label {
   display: block;
-  font-size: 0.78rem;
-  color: var(--text-muted);
+  font-size: 0.72rem;
+  color: var(--color-2);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 2px;
@@ -143,9 +137,9 @@
 
 .stat-card-value {
   display: block;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--color-5);
 }
 
 /* Chart */
@@ -155,41 +149,38 @@
 }
 
 .chart-title {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: 4px;
+  color: var(--color-5);
 }
 
 .chart-desc {
-  font-size: 0.88rem;
-  color: var(--text-secondary);
+  font-size: 0.85rem;
+  color: var(--color-3);
   margin-bottom: 24px;
-}
-
-.chart-container {
-  width: 100%;
 }
 
 /* Custom Tooltip */
 .custom-tooltip {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
+  background: var(--color-1);
+  border: 1px solid var(--color-2);
   border-radius: var(--radius-sm);
   padding: 10px 14px;
   box-shadow: var(--shadow-md);
 }
 
 .tooltip-label {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--color-5);
   text-transform: capitalize;
   margin-bottom: 2px;
 }
 
 .tooltip-value {
-  font-size: 0.8rem;
-  color: var(--accent-primary-light);
+  font-size: 0.78rem;
+  color: var(--color-4);
 }
 
 /* Insights */
@@ -208,7 +199,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 700;
   margin-bottom: 16px;
 }
@@ -218,7 +209,7 @@
 }
 
 .insight-title.success {
-  color: #34d399;
+  color: #4ade80;
 }
 
 .insight-list {
@@ -229,10 +220,10 @@
 .insight-list li {
   position: relative;
   padding: 10px 0 10px 20px;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
+  font-size: 0.88rem;
+  color: var(--color-3);
   line-height: 1.6;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .insight-list li:last-child {
@@ -248,8 +239,8 @@
 }
 
 .insight-list.suggestions li::before {
-  color: #34d399;
-  content: "✦";
+  color: #4ade80;
+  content: "+";
 }
 
 /* Footer */
@@ -271,8 +262,5 @@
   }
   .insights-row {
     grid-template-columns: 1fr;
-  }
-  .verdict-content h1 {
-    font-size: 1.4rem;
   }
 }
